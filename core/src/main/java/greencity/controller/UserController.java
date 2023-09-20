@@ -10,6 +10,21 @@ import greencity.dto.PageableDto;
 import greencity.dto.filter.FilterUserDto;
 import greencity.dto.shoppinglist.CustomShoppingListItemResponseDto;
 import greencity.dto.ubs.UbsTableCreationDto;
+import greencity.dto.user.RoleDto;
+import greencity.dto.user.UserActivationDto;
+import greencity.dto.user.UserDeactivationReasonDto;
+import greencity.dto.user.UserForListDto;
+import greencity.dto.user.UserManagementDto;
+import greencity.dto.user.UserManagementUpdateDto;
+import greencity.dto.user.UserManagementVO;
+import greencity.dto.user.UserManagementViewDto;
+import greencity.dto.user.UserProfileDtoRequest;
+import greencity.dto.user.UserProfileDtoResponse;
+import greencity.dto.user.UserProfileStatisticsDto;
+import greencity.dto.user.UserRoleDto;
+import greencity.dto.user.UserStatusDto;
+import greencity.dto.user.UserUpdateDto;
+import greencity.dto.user.UserVO;
 import greencity.dto.user.*;
 import greencity.enums.EmailNotification;
 import greencity.enums.Role;
@@ -474,7 +489,11 @@ public class UserController {
      * @author Orest Mamchuk
      */
     @ApiOperation(value = "update via UserManagement")
-    @ApiResponses(value = @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED))
+    @ApiResponses(value = {
+            @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED),
+            @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN),
+            @ApiResponse(code = 404, message = HttpStatuses.NOT_FOUND)
+    })
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateUserManagement(
