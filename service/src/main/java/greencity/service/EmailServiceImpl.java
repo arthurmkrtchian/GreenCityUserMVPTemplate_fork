@@ -80,7 +80,8 @@ public class EmailServiceImpl implements EmailService {
         if (!authorEmail.matches(AppConstant.VALIDATION_EMAIL))
             throw new BadRequestException(ErrorMessage.INVALID_USER_EMAIL);
         Optional<User> user = userRepo.findByEmail(authorEmail);
-        if (user.isEmpty()) throw new NotFoundException(ErrorMessage.USER_NOT_FOUND_BY_EMAIL);
+        if (user.isEmpty())
+            throw new NotFoundException(ErrorMessage.USER_NOT_FOUND_BY_EMAIL);
 
         log.info(LogMessage.IN_SEND_CHANGE_PLACE_STATUS_EMAIL, placeName);
         Map<String, Object> model = new HashMap<>();
