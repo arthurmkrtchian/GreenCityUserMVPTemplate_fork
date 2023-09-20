@@ -1,6 +1,5 @@
 package greencity.service;
 
-import greencity.constant.AppConstant;
 import greencity.constant.EmailConstants;
 import greencity.constant.ErrorMessage;
 import greencity.constant.LogMessage;
@@ -14,7 +13,6 @@ import greencity.dto.user.PlaceAuthorDto;
 import greencity.dto.user.UserActivationDto;
 import greencity.dto.user.UserDeactivationReasonDto;
 import greencity.dto.violation.UserViolationMailDto;
-import greencity.exception.exceptions.BadRequestException;
 import greencity.exception.exceptions.NotFoundException;
 import greencity.repository.UserRepo;
 import lombok.extern.slf4j.Slf4j;
