@@ -488,7 +488,8 @@ public class UserController {
     @ApiOperation(value = "update via UserManagement")
     @ApiResponses(value = {
             @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED),
-            @ApiResponse(code = 404, message = HttpStatuses.UNAUTHORIZED)
+            @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN),
+            @ApiResponse(code = 404, message = HttpStatuses.NOT_FOUND)
     })
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
