@@ -1,5 +1,6 @@
 package greencity.service;
 
+import greencity.constant.AppConstant;
 import greencity.constant.EmailConstants;
 import greencity.constant.ErrorMessage;
 import greencity.constant.LogMessage;
@@ -13,6 +14,7 @@ import greencity.dto.user.PlaceAuthorDto;
 import greencity.dto.user.UserActivationDto;
 import greencity.dto.user.UserDeactivationReasonDto;
 import greencity.dto.violation.UserViolationMailDto;
+import greencity.exception.exceptions.BadRequestException;
 import greencity.exception.exceptions.NotFoundException;
 import greencity.repository.UserRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -242,6 +244,9 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendHabitNotification(String name, String email) {
+        if (!email.matches(AppConstant.VALIDATION_EMAIL)){
+            throw new BadRequestException(ErrorMessage.INVALID_USER_EMAIL);
+        }
         if (userRepo.findByEmail(email).isEmpty()) {
             throw new NotFoundException(ErrorMessage.USER_NOT_FOUND_BY_EMAIL + email);
         }
