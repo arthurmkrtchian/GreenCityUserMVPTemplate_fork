@@ -12,8 +12,6 @@ import greencity.dto.shoppinglist.CustomShoppingListItemResponseDto;
 import greencity.dto.ubs.UbsTableCreationDto;
 import greencity.dto.user.RoleDto;
 import greencity.dto.user.UserActivationDto;
-import greencity.dto.user.UserAndAllFriendsWithOnlineStatusDto;
-import greencity.dto.user.UserAndFriendsWithOnlineStatusDto;
 import greencity.dto.user.UserDeactivationReasonDto;
 import greencity.dto.user.UserForListDto;
 import greencity.dto.user.UserManagementDto;
@@ -48,8 +46,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -380,6 +376,8 @@ public class UserController {
         @ApiResponse(code = 200, message = HttpStatuses.OK),
         @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
         @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED),
+        @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN),
+        @ApiResponse(code = 404, message = HttpStatuses.NOT_FOUND)
     })
     @GetMapping("isOnline/{userId}/")
     public ResponseEntity<Boolean> checkIfTheUserIsOnline(
@@ -458,7 +456,7 @@ public class UserController {
     @GetMapping("/findUserForManagement")
     @ApiPageable
     public ResponseEntity<PageableAdvancedDto<UserManagementDto>> findUserForManagementByPage(
-        @ApiIgnore Pageable pageable) {
+        Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUserForManagementByPage(pageable));
     }
 
