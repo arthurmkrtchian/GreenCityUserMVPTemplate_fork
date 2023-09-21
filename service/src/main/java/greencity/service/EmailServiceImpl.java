@@ -76,12 +76,14 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendChangePlaceStatusEmail(String authorName, String placeName,
-                                           String placeStatus, String authorEmail) {
-        if (!authorEmail.matches(AppConstant.VALIDATION_EMAIL))
+        String placeStatus, String authorEmail) {
+        if (!authorEmail.matches(AppConstant.VALIDATION_EMAIL)) {
             throw new BadRequestException(ErrorMessage.INVALID_USER_EMAIL);
+        }
         Optional<User> user = userRepo.findByEmail(authorEmail);
-        if (user.isEmpty())
+        if (user.isEmpty()) {
             throw new NotFoundException(ErrorMessage.USER_NOT_FOUND_BY_EMAIL);
+        }
 
         log.info(LogMessage.IN_SEND_CHANGE_PLACE_STATUS_EMAIL, placeName);
         Map<String, Object> model = new HashMap<>();
@@ -251,7 +253,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendHabitNotification(String name, String email) {
-        if (!email.matches(AppConstant.VALIDATION_EMAIL)){
+        if (!email.matches(AppConstant.VALIDATION_EMAIL)) {
             throw new BadRequestException(ErrorMessage.INVALID_USER_EMAIL);
         }
         if (userRepo.findByEmail(email).isEmpty()) {
