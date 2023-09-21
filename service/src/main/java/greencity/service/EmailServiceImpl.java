@@ -14,6 +14,7 @@ import greencity.dto.user.PlaceAuthorDto;
 import greencity.dto.user.UserActivationDto;
 import greencity.dto.user.UserDeactivationReasonDto;
 import greencity.dto.violation.UserViolationMailDto;
+import greencity.entity.User;
 import greencity.exception.exceptions.BadRequestException;
 import greencity.exception.exceptions.NotFoundException;
 import greencity.repository.UserRepo;
@@ -75,7 +76,13 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendChangePlaceStatusEmail(String authorName, String placeName,
-        String placeStatus, String authorEmail) {
+                                           String placeStatus, String authorEmail) {
+        if (!authorEmail.matches(AppConstant.VALIDATION_EMAIL))
+            throw new BadRequestException(ErrorMessage.INVALID_USER_EMAIL);
+        Optional<User> user = userRepo.findByEmail(authorEmail);
+        if (user.isEmpty())
+            throw new NotFoundException(ErrorMessage.USER_NOT_FOUND_BY_EMAIL);
+
         log.info(LogMessage.IN_SEND_CHANGE_PLACE_STATUS_EMAIL, placeName);
         Map<String, Object> model = new HashMap<>();
         model.put(EmailConstants.CLIENT_LINK, clientLink);
