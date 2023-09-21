@@ -462,12 +462,12 @@ public class UserController {
     }
 
     /**
-     * Method that allow you to find {@link UserVO} by Id.
+     * Method that allow you to find {@link UserVO} search query.
      *
      * @return {@link UserUpdateDto}.
      * @author Orest Mamchuk
      */
-    @ApiOperation(value = "Get User by id")
+    @ApiOperation(value = "Get User by search query")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = HttpStatuses.OK),
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
