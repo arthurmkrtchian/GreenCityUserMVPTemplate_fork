@@ -173,7 +173,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .hasAnyRole(UBS_EMPLOYEE)
             .antMatchers(HttpMethod.POST,
                 "/user/filter",
-                "/ownSecurity/register")
+                "/ownSecurity/register",
+                "/email/sendHabitNotification")
             .hasAnyRole(ADMIN)
             .antMatchers(HttpMethod.PATCH,
                 "/user/status",

@@ -251,6 +251,9 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendHabitNotification(String name, String email) {
+        if (!email.matches(AppConstant.VALIDATION_EMAIL)){
+            throw new BadRequestException(ErrorMessage.INVALID_USER_EMAIL);
+        }
         if (userRepo.findByEmail(email).isEmpty()) {
             throw new NotFoundException(ErrorMessage.USER_NOT_FOUND_BY_EMAIL + email);
         }
