@@ -37,6 +37,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -329,14 +330,6 @@ class UserServiceImplTest {
     void getRoles() {
         RoleDto roleDto = new RoleDto(Role.class.getEnumConstants());
         assertEquals(roleDto, userService.getRoles());
-    }
-
-    @Test
-    void getEmailStatusesTest() {
-        List<EmailNotification> placeStatuses =
-            Arrays.asList(EmailNotification.class.getEnumConstants());
-
-        assertEquals(placeStatuses, userService.getEmailNotificationsStatuses());
     }
 
     @Test

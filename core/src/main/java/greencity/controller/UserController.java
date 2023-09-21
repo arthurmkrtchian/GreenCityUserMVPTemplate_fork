@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -157,8 +158,8 @@ public class UserController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST)
     })
     @GetMapping("emailNotifications")
-    public ResponseEntity<List<EmailNotification>> getEmailNotifications() {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getEmailNotificationsStatuses());
+    public ResponseEntity<EmailNotification> getEmailNotifications(@ApiIgnore @AuthenticationPrincipal Principal principal) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getEmailNotificationsStatuses(principal.getName()));
     }
 
     /**
@@ -405,7 +406,7 @@ public class UserController {
             @ApiResponse(code = 404, message = HttpStatuses.NOT_FOUND),
     })
     @GetMapping("/findByEmail")
-    public ResponseEntity<UserVO> findByEmail(@RequestParam String email) {
+    public ResponseEntity<UserVO> findByEmail(@Email @RequestParam String email) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findByEmail(email));
     }
 
