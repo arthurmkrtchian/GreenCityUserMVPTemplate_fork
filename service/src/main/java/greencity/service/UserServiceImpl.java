@@ -2,6 +2,7 @@ package greencity.service;
 
 import greencity.constant.AppConstant;
 import greencity.constant.UpdateConstants;
+import greencity.dto.language.LanguageVO;
 import greencity.dto.ubs.UbsTableCreationDto;
 import greencity.dto.user.*;
 import greencity.entity.Language;
@@ -321,7 +322,9 @@ public class UserServiceImpl implements UserService {
         accessForUpdateUserStatus(id, email);
         UserVO userVO = findById(id);
         userVO.setUserStatus(userStatus);
+        LanguageVO languageVO = userVO.getLanguageVO();
         User map = modelMapper.map(userVO, User.class);
+        map.setLanguage(modelMapper.map(languageVO, Language.class));
         return modelMapper.map(userRepo.save(map), UserStatusDto.class);
     }
 
