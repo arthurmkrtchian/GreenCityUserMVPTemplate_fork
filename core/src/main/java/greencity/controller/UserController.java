@@ -168,7 +168,8 @@ public class UserController {
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = HttpStatuses.OK, response = EmailNotification[].class),
         @ApiResponse(code = 303, message = HttpStatuses.SEE_OTHER),
-        @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST)
+        @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
+        @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED)
     })
     @GetMapping("emailNotifications")
     public ResponseEntity<List<EmailNotification>> getEmailNotifications() {
