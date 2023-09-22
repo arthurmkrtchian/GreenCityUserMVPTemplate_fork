@@ -377,6 +377,8 @@ public class UserController {
         @ApiResponse(code = 200, message = HttpStatuses.OK),
         @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
         @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED),
+        @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN),
+        @ApiResponse(code = 404, message = HttpStatuses.NOT_FOUND)
     })
     @GetMapping("isOnline/{userId}/")
     public ResponseEntity<Boolean> checkIfTheUserIsOnline(
@@ -456,7 +458,7 @@ public class UserController {
     @GetMapping("/findUserForManagement")
     @ApiPageable
     public ResponseEntity<PageableAdvancedDto<UserManagementDto>> findUserForManagementByPage(
-        @ApiIgnore Pageable pageable) {
+            @ApiIgnore Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUserForManagementByPage(pageable));
     }
 

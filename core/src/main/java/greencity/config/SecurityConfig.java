@@ -113,7 +113,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/user/shopping-list-items/habits/{habitId}/shopping-list",
                 "/user/{userId}/{habitId}/custom-shopping-list-items/available",
                 "/user/{userId}/profile/",
-                "/user/isOnline/{userId}/",
                 "/user/{userId}/profileStatistics/",
                 "/user/userAndSixFriendsWithOnlineStatus",
                 "/user/userAndAllFriendsWithOnlineStatus",
@@ -175,6 +174,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/user/filter",
                 "/ownSecurity/register",
                 "/email/sendHabitNotification")
+            .hasAnyRole(ADMIN)
+            .antMatchers(HttpMethod.GET,
+                "/user/isOnline/{userId}/")
             .hasAnyRole(ADMIN)
             .antMatchers(HttpMethod.PATCH,
                 "/user/status",
