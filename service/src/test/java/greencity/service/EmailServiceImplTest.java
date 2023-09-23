@@ -201,3 +201,4 @@ class EmailServiceImplTest {
 //        assertThrows(NotFoundException.class, () -> service.sendNotificationByEmail(dto, "test@gmail.com"));
 //    }
 }
+
