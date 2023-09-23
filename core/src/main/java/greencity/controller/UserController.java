@@ -25,6 +25,7 @@ import greencity.dto.user.UserRoleDto;
 import greencity.dto.user.UserStatusDto;
 import greencity.dto.user.UserUpdateDto;
 import greencity.dto.user.UserVO;
+
 import greencity.enums.EmailNotification;
 import greencity.enums.Role;
 import greencity.enums.UserStatus;
@@ -63,8 +64,8 @@ public class UserController {
     private final EmailService emailService;
 
     /**
-     * The method which update user status. Parameter principal are ignored because
-     * Spring automatically provide the Principal object.
+     * The method which updates user status. Parameter principal are ignored because
+     * Spring automatically provides the Principal object.
      *
      * @param userStatusDto - dto with updated filed.
      * @return {@link UserStatusDto}
@@ -655,7 +656,7 @@ public class UserController {
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = HttpStatuses.OK),
         @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
-        @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
+        @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED)
     })
     @PutMapping("/language/{languageId}")
     public ResponseEntity<Object> setUserLanguage(@ApiIgnore @CurrentUser UserVO userVO,
