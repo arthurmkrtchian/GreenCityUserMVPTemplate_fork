@@ -173,8 +173,10 @@ public class UserController {
         @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED)
     })
     @GetMapping("emailNotifications")
-    public ResponseEntity<EmailNotification> getEmailNotifications(@ApiIgnore @AuthenticationPrincipal Principal principal) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getEmailNotificationsStatuses(principal.getName()));
+    public ResponseEntity<EmailNotification> getEmailNotifications(
+        @ApiIgnore @AuthenticationPrincipal Principal principal) {
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(userService.getEmailNotificationsStatuses(principal.getName()));
     }
 
     /**
