@@ -45,7 +45,6 @@ class EmailControllerTest {
             .build();
     }
 
-
     @Test
     void addEcoNews() throws Exception {
         String content =
