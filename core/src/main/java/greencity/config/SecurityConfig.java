@@ -92,7 +92,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/ownSecurity/verifyEmail",
                 "/ownSecurity/updateAccessToken",
                 "/ownSecurity/restorePassword",
-                "/user/emailNotifications",
                 "/user/activatedUsersAmount",
                 "/user/{userId}/habit/assign",
                 "/token",
@@ -105,7 +104,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/ownSecurity/signIn",
                 "/ownSecurity/updatePassword",
                 "/email/sendReport",
-                "/email/changePlaceStatus",
                 "/email/sendHabitNotification")
             .permitAll()
             .antMatchers(HttpMethod.GET,
@@ -113,10 +111,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/user/shopping-list-items/habits/{habitId}/shopping-list",
                 "/user/{userId}/{habitId}/custom-shopping-list-items/available",
                 "/user/{userId}/profile/",
-                "/user/isOnline/{userId}/",
                 "/user/{userId}/profileStatistics/",
                 "/user/userAndSixFriendsWithOnlineStatus",
                 "/user/userAndAllFriendsWithOnlineStatus",
+                "/user/emailNotifications",
                 "/user/findNotDeactivatedByEmail",
                 "/user/findByEmail",
                 "/user/findIdByEmail",
@@ -131,6 +129,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.POST,
                 USER_LINK,
                 "/email/addEcoNews",
+                "/email/changePlaceStatus",
                 "/user/shopping-list-items",
                 "/user/{userId}/habit",
                 "/ownSecurity/set-password")
@@ -173,7 +172,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .hasAnyRole(UBS_EMPLOYEE)
             .antMatchers(HttpMethod.POST,
                 "/user/filter",
-                "/ownSecurity/register")
+                "/ownSecurity/register",
+                "/email/sendHabitNotification")
+            .hasAnyRole(ADMIN)
+            .antMatchers(HttpMethod.GET,
+                "/user/isOnline/{userId}/")
             .hasAnyRole(ADMIN)
             .antMatchers(HttpMethod.PATCH,
                 "/user/status",
