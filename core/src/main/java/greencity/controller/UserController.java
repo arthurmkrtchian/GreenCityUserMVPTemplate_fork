@@ -10,7 +10,21 @@ import greencity.dto.PageableDto;
 import greencity.dto.filter.FilterUserDto;
 import greencity.dto.shoppinglist.CustomShoppingListItemResponseDto;
 import greencity.dto.ubs.UbsTableCreationDto;
-import greencity.dto.user.*;
+import greencity.dto.user.RoleDto;
+import greencity.dto.user.UserActivationDto;
+import greencity.dto.user.UserDeactivationReasonDto;
+import greencity.dto.user.UserForListDto;
+import greencity.dto.user.UserManagementDto;
+import greencity.dto.user.UserManagementUpdateDto;
+import greencity.dto.user.UserManagementVO;
+import greencity.dto.user.UserManagementViewDto;
+import greencity.dto.user.UserProfileDtoRequest;
+import greencity.dto.user.UserProfileDtoResponse;
+import greencity.dto.user.UserProfileStatisticsDto;
+import greencity.dto.user.UserRoleDto;
+import greencity.dto.user.UserStatusDto;
+import greencity.dto.user.UserUpdateDto;
+import greencity.dto.user.UserVO;
 import greencity.enums.EmailNotification;
 import greencity.enums.Role;
 import greencity.enums.UserStatus;
@@ -155,13 +169,12 @@ public class UserController {
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = HttpStatuses.OK, response = EmailNotification[].class),
         @ApiResponse(code = 303, message = HttpStatuses.SEE_OTHER),
-        @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST)
+        @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
+        @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED)
     })
     @GetMapping("emailNotifications")
-    public ResponseEntity<EmailNotification> getEmailNotifications(
-        @ApiIgnore @AuthenticationPrincipal Principal principal) {
-        return ResponseEntity.status(HttpStatus.OK)
-            .body(userService.getEmailNotificationsStatuses(principal.getName()));
+    public ResponseEntity<EmailNotification> getEmailNotifications(@ApiIgnore @AuthenticationPrincipal Principal principal) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getEmailNotificationsStatuses(principal.getName()));
     }
 
     /**
@@ -366,6 +379,8 @@ public class UserController {
         @ApiResponse(code = 200, message = HttpStatuses.OK),
         @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
         @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED),
+        @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN),
+        @ApiResponse(code = 404, message = HttpStatuses.NOT_FOUND)
     })
     @GetMapping("isOnline/{userId}/")
     public ResponseEntity<Boolean> checkIfTheUserIsOnline(
@@ -423,6 +438,7 @@ public class UserController {
         @ApiResponse(code = 200, message = HttpStatuses.OK),
         @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
         @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED),
+        @ApiResponse(code = 404, message = HttpStatuses.NOT_FOUND)
     })
     @GetMapping("/findById")
     public ResponseEntity<UserVO> findById(@RequestParam Long id) {
@@ -477,7 +493,11 @@ public class UserController {
      * @author Orest Mamchuk
      */
     @ApiOperation(value = "update via UserManagement")
-    @ApiResponses(value = @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED))
+    @ApiResponses(value = {
+        @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED),
+        @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN),
+        @ApiResponse(code = 404, message = HttpStatuses.NOT_FOUND)
+    })
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateUserManagement(
@@ -595,7 +615,7 @@ public class UserController {
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = HttpStatuses.OK),
         @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
-        @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
+        @ApiResponse(code = 401, message = HttpStatuses.UNAUTHORIZED)
     })
     @GetMapping("/lang")
     public ResponseEntity<String> getUserLang(@ApiIgnore @CurrentUser UserVO userVO) {
