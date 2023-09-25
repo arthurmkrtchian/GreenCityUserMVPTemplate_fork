@@ -31,14 +31,14 @@ jobs:
       - name: Fetch upstream
         run: git fetch upstream
 
-      - name: Temporarily stash changes of the pom.xml
-        run: git stash push "pom.xml"
+      - name: Temporarily stash changes of the file you want to exclude
+        run: git stash push "pom.xml" || echo "No changes to stash"
 
       - name: Merge changes from the upstream dev branch
         run: git merge upstream/dev
 
       - name: Restore the stashed file
-        run: git stash pop
+        run: git stash list | grep -q 'stash@{0}' && git stash pop || echo "No stash to apply"
 
       - name: Commit and push changes
         run: |
