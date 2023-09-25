@@ -22,8 +22,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "arthurmkrtchian"
-          git config user.email "mkrtchian.arthur999@gmail.com"
+          git config user.name "$(git log -1 --pretty=format:'%an')"
+          git config user.email "$(git log -1 --pretty=format:'%ae')"
 
       - name: Add remote upstream
         run: git remote add upstream https://github.com/GreenCity23/GreenCityUserMVPTemplate.git
