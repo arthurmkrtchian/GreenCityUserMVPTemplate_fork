@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 @Builder
 public class UserManagementViewDto {
     @Pattern(regexp = "^\\d*$",
-            message = "Id should be a number!")
+        message = "Id should be a number!")
     private String id;
 
     private String name;
@@ -24,10 +24,10 @@ public class UserManagementViewDto {
     private String userCredo;
 
     @Pattern(regexp = "^ROLE_[a-zA-Z]*$",
-            message = "Role should start from 'ROLE_' and can't contain any numbers or special symbols!")
+        message = "Role should start from 'ROLE_' and can't contain any numbers or special symbols!")
     private String role;
 
     @Pattern(regexp = "^\\d*$",
-            message = "Status should be a number!")
+        message = "Status should be a number!")
     private String userStatus;
 }
