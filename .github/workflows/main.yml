@@ -2,7 +2,7 @@ name: SonarCloud and Update Fork
 
 on:
   schedule:
-    - cron:  '0 0 * * *'  # Запуск каждый день в полночь
+    - cron:  '0 0 * * *'
   push:
     branches:
       - dev
