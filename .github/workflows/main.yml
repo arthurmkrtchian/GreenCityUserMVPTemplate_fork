@@ -37,6 +37,15 @@ jobs:
       - name: Merge changes from the upstream dev branch
         run: git merge upstream/dev
 
+      - name: Format code
+        run: mvn formatter:format
+
+      - name: Commit formatted code
+        run: |
+          git add .
+          git diff --cached --exit-code || git commit -m "Apply code formatting"
+          git push origin dev || echo "No changes to push"
+
       - name: Restore the stashed file
         run: git stash list | grep -q 'stash@{0}' && git stash pop || echo "No stash to apply"
 
