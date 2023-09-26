@@ -4,8 +4,7 @@ on:
   schedule:
     - cron:  '0 0 * * *'  # Запуск каждый день в полночь
   push:
-    branches:
-      - dev
+    branches: ["main", "dev"]
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -22,8 +21,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "TEST"
-          git config user.email "TSET"
+          git config user.name "arthurmkrtchian"
+          git config user.email "mkrtchian.arthur999@gmail.com"
 
       - name: Add remote upstream
         run: git remote add upstream https://github.com/GreenCity23/GreenCityUserMVPTemplate.git
@@ -31,11 +30,11 @@ jobs:
       - name: Fetch upstream
         run: git fetch upstream
 
-      - name: Exclude specific files from the merge process
-        run: |
-          git checkout --ours -- .github/workflows/main.yml
-          git checkout --ours -- pom.xml
-          git add .github/workflows/main.yml pom.xml
+      # - name: Exclude specific files from the merge process
+      #   run: |
+      #     git checkout --ours -- .github/workflows/main.yml
+      #     git checkout --ours -- pom.xml
+      #     git add .github/workflows/main.yml pom.xml
 
       - name: Merge changes from the upstream dev branch
         run: git merge upstream/dev
